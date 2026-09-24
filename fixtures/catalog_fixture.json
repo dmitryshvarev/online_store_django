@@ -1,0 +1,99 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "овощи",
+        "description": ""
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "фрукты",
+        "description": ""
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "name": "Ягоды",
+        "description": "Спелые и сочные"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+        "name": "Выпечка",
+        "description": "Всегда свежая"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "ананас",
+        "description": "",
+        "image": "",
+        "category": 2,
+        "price": "150.00",
+        "created_at": "2026-09-16",
+        "updated_at": "2026-09-16"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "томаты",
+        "description": "",
+        "image": "",
+        "category": 1,
+        "price": "150.00",
+        "created_at": "2026-09-16",
+        "updated_at": "2026-09-16"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Пицца",
+        "description": null,
+        "image": "",
+        "category": 4,
+        "price": "500.00",
+        "created_at": "2026-09-16",
+        "updated_at": "2026-09-16"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Вишня",
+        "description": null,
+        "image": "",
+        "category": 3,
+        "price": "150.00",
+        "created_at": "2026-09-16",
+        "updated_at": "2026-09-16"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Пирог",
+        "description": null,
+        "image": "",
+        "category": 4,
+        "price": "350.00",
+        "created_at": "2026-09-17",
+        "updated_at": "2026-09-17"
+    }
+}
+]
