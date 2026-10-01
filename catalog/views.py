@@ -18,11 +18,6 @@ class ProductDetailView(DetailView):
     template_name = "catalog/product_detail.html"
     context_object_name = "product"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["category_id"] = self.object.category.id
-        return context
-
 
 class ProductListView(ListView):
     model = Product
@@ -32,6 +27,7 @@ class ProductListView(ListView):
 
 class ProductCreateView(CreateView):
     model = Product
+    fields = ['name', 'description', 'category', 'price']
     template_name = "catalog/product_form.html"
     success_url = reverse_lazy("catalog:product_list")
 
@@ -42,6 +38,7 @@ class ProductCreateView(CreateView):
 
 class ProductUpdateView(UpdateView):
     model = Product
+    fields = ['name', 'description', 'category', 'price']
     template_name = "catalog/product_form.html"
     success_url = reverse_lazy("catalog:product_list")
 
