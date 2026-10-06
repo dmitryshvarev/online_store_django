@@ -1,12 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 <div class="d-flex">
-    {% include 'menu.html' %}
+    {% include 'catalog/menu.html' %}
 
     <main class="container-fluid p-5">
+        <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary mb-3"> ← Назад к товарам </a>
 
         <h1>{{ product.name }}</h1>
 
@@ -21,6 +22,9 @@
         <p><strong>Цена:</strong> {{ product.price }} ₽</p>
         <p><strong>Описание:</strong></p>
         <p>{{ product.description|linebreaks }}</p>
+
+        <a href="{% url 'catalog:product_edit' product.pk %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
 
     </main>
 </div>

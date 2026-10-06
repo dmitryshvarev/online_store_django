@@ -1,12 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% block title %}Каталог товаров{% endblock %}
 
 {% block content %}
 <div class="d-flex">
-    {% include 'menu.html' %}
+    {% include 'catalog/menu.html' %}
 
     <main class="container-fluid p-5">
+        <div class="mb-4">
+            <a href="{% url 'catalog:product_create' %}" class="btn btn-success">➕ Создать товар</a>
+        </div>
         <h1>Каталог товаров</h1>
         <div class="row">
             {% for product in products %}
