@@ -6,8 +6,6 @@ load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEFAULT_FROM_EMAIL = 'test@gmail.com'
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True if os.getenv('DEBUG') == 'True' else False
@@ -23,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +79,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -93,6 +92,12 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = "users.User"
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = "users:login"
 
 MAILERS = {
     'default': {
