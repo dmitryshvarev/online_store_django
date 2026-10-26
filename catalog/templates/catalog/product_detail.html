@@ -23,9 +23,10 @@
         <p><strong>Описание:</strong></p>
         <p>{{ product.description|linebreaks }}</p>
 
-        <a href="{% url 'catalog:product_edit' product.pk %}" class="btn btn-primary">Редактировать</a>
-        <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
-
+        {% if user == product.owner or perms.catalog.can_unpublish_product %}
+            <a href="{% url 'catalog:product_edit' product.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+        {% endif %}
     </main>
 </div>
 {% endblock %}

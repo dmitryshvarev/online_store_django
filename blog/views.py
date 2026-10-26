@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.http import Http404
 from django.urls import reverse_lazy
@@ -7,6 +8,13 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import BlogPost
+
+
+class ContentManagerMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm("blog.can_manage_blog"):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 class BlogPostListView(ListView):
@@ -49,7 +57,7 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("blog:list")
 
 
-class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
+class BlogPostUpdateView(LoginRequiredMixin, ContentManagerMixin, UpdateView):
     model = BlogPost
     fields = ["title", "content", "preview", "is_published"]
     template_name = "blog/blog_form.html"
@@ -58,7 +66,7 @@ class BlogPostUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy("blog:detail", kwargs={"pk": self.object.pk})
 
 
-class BlogPostDeleteView(LoginRequiredMixin, DeleteView):
+class BlogPostDeleteView(LoginRequiredMixin, ContentManagerMixin, DeleteView):
     model = BlogPost
     template_name = "blog/blog_confirm_delete.html"
     success_url = reverse_lazy("blog:list")
