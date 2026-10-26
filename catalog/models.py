@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -13,6 +14,15 @@ class Product(models.Model):
         verbose_name="Изображение товара",
         help_text="Загрузите изображение товара",
     )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="products",
+        verbose_name="Владелец",
+    )
+    is_published = models.BooleanField(default=False, verbose_name="Опубликовано")
     category = models.ForeignKey(
         "Category",
         blank=True,
@@ -35,6 +45,9 @@ class Product(models.Model):
         verbose_name = "товар"
         verbose_name_plural = "товары"
         ordering = ["name"]
+        permissions = [
+            ("can_unpublish_product", "Может отменять публикацию продукта"),
+        ]
 
 
 class Category(models.Model):
