@@ -3,6 +3,8 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from .forms import ProductForm
 from .models import Product
@@ -24,6 +26,7 @@ class ContactsView(TemplateView):
     template_name = "catalog/contacts.html"
 
 
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "catalog/product_detail.html"
