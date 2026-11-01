@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
@@ -7,7 +8,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 
 from .forms import ProductForm
-from .models import Product
+from .models import Category, Product
+from .services import get_cached_products_by_category
 
 
 class OwnerOrModeratorMixin:
@@ -61,3 +63,9 @@ class ProductDeleteView(LoginRequiredMixin, OwnerOrModeratorMixin, DeleteView):
     model = Product
     template_name = "catalog/product_confirm_delete.html"
     success_url = reverse_lazy("catalog:product_list")
+
+
+def products_by_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = get_cached_products_by_category(category_id)
+    return render(request, "catalog/products_by_category.html", {"category": category, "products": products})
